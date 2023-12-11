@@ -1,0 +1,13 @@
+IDEA PRINCIPAL PARA LA BASE DE DATOS - PROYECTO SQL CODDER-HOUSE
+
+- Base de datos de alumnos para una escuela de artes marciales -
+
+justificación:
+
+Una escuela de artes marciales real en donde entreno, tiene una gran cantidad de información. Dicha información la tienen almacenada en carpetas fisicas y ficheros.
+En ellas no solo tienen información de profesores si no también de alumnos que día a día se suman a la misma. Con varios centros a su disposicón con diferentes
+profesores y maestros.
+Se podría realizar una base de datos para optimizar la información de los alumnos y profesores miembros de la escuela. 
+De esta forma se puede llevar un seguimiento del avance de los alumnos mas eficiente, además de tener un acceso a dicha información de manera mas rápida.
+También va a permitir detectar aquellos profesores sin alumnos permitiendo así poder asignarles los nuevos miembros de la escuela. 
+Ademas poder gestionar cuestiones como examenes para pasar de nivel y contar con una lista de estudiantes de cada centro de manera mas rapida, organizada y actualizada.
