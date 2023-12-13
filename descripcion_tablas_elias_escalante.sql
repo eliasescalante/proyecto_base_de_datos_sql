@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `school` (
 CREATE TABLE IF NOT EXISTS `student`(
     `student_file` int NOT NULL AUTO_INCREMENT,
     `full_name` varchar(75) NOT NULL,
-	`birthdate` DATE,
+    `birthdate` DATE,
     `adress` varchar(75) NOT NULL, 
     `phone_number` varchar(20) NOT NULL,
     `mail` varchar(100) NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `student`(
     `teacher_in_charge` varchar(25),
     PRIMARY KEY(`student_file`),
     FOREIGN KEY(`graduation`) REFERENCES `graduation`(`id_graduation`),
-	FOREIGN KEY(`teacher_in_charge`) REFERENCES `teacher`(`teacher_file`)
+    FOREIGN KEY(`teacher_in_charge`) REFERENCES `teacher`(`teacher_file`)
 );
 
 
