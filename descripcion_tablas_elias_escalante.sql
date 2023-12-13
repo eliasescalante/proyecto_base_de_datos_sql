@@ -24,30 +24,17 @@ CREATE TABLE IF NOT EXISTS `sede`(
     PRIMARY KEY (`id_sede`)
 );
 
-CREATE TABLE IF NOT EXISTS `school`(
-    `id` int NOT NULL AUTO_INCREMENT,
-    `name` varchar(25) NOT NULL,
-    `teacher_in_charge` varchar(25) NOT NULL,
-    `style` varchar(75) NOT NULL,
-    `sede` varchar (70),
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`teacher_in_charge`)  REFERENCES `teacher`(`teacher_file`),
-    FOREIGN KEY (`style`)  REFERENCES `style`(`id_style`),
-    FOREIGN KEY (`sede`)  REFERENCES `sede`(`id_sede`)
-);
-
-CREATE TABLE IF NOT EXISTS `student`(
-    `student_file` int NOT NULL AUTO_INCREMENT,
-    `full_name` varchar(75) NOT NULL,
-	`birthdate` DATE,
-    `adress` varchar(75) NOT NULL, 
+CREATE TABLE IF NOT EXISTS `master`(
+    `master_file` int NOT NULL AUTO_INCREMENT,
+    `full_name` varchar(25) NOT NULL,
+    `birthdate` DATE,
     `phone_number` varchar(20) NOT NULL,
+    `adress` varchar(75) NOT NULL,
     `mail` varchar(100) NOT NULL,
     `graduation` varchar(100),
-    `teacher_in_charge` varchar(25),
-    PRIMARY KEY(`student_file`),
-    FOREIGN KEY(`graduation`) REFERENCES `graduation`(`id_graduation`),
-	FOREIGN KEY(`teacher_in_charge`) REFERENCES `teacher`(`teacher_file`)
+    `school_in_charge` varchar(100),
+    PRIMARY KEY (`master_file`),
+    FOREIGN KEY (`graduation`)  REFERENCES `graduation`(`id_graduation`), 
 );
 
 CREATE TABLE IF NOT EXISTS `teacher`(
@@ -64,19 +51,35 @@ CREATE TABLE IF NOT EXISTS `teacher`(
     FOREIGN KEY (`master`) REFERENCES `master`(`master_file`)
 );
 
-CREATE TABLE IF NOT EXISTS `master`(
-    `master_file` int NOT NULL AUTO_INCREMENT,
-    `full_name` varchar(25) NOT NULL,
-    `birthdate` DATE,
+CREATE TABLE IF NOT EXISTS `school` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(25) NOT NULL,
+    `teacher_in_charge` VARCHAR(25) NOT NULL,
+    `style_id` INT,
+    `sede` INT,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`teacher_in_charge`) REFERENCES `teacher`(`teacher_file`),
+    FOREIGN KEY (`style_id`) REFERENCES `style`(`id_style`), -- Cambio
+    FOREIGN KEY (`sede`) REFERENCES `sede`(`id_sede`)
+);
+
+CREATE TABLE IF NOT EXISTS `student`(
+    `student_file` int NOT NULL AUTO_INCREMENT,
+    `full_name` varchar(75) NOT NULL,
+	`birthdate` DATE,
+    `adress` varchar(75) NOT NULL, 
     `phone_number` varchar(20) NOT NULL,
-    `adress` varchar(75) NOT NULL,
     `mail` varchar(100) NOT NULL,
     `graduation` varchar(100),
-    `school_in_charge` varchar(100),
-    PRIMARY KEY (`master_file`),
-    FOREIGN KEY (`graduation`)  REFERENCES `graduation`(`id_graduation`), 
-    FOREIGN KEY (`school_in_charge`) REFERENCES `school`(`id`)
+    `teacher_in_charge` varchar(25),
+    PRIMARY KEY(`student_file`),
+    FOREIGN KEY(`graduation`) REFERENCES `graduation`(`id_graduation`),
+	FOREIGN KEY(`teacher_in_charge`) REFERENCES `teacher`(`teacher_file`)
 );
+
+
+
+
 
 
 
