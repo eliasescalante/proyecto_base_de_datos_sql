@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `school` (
     `sede` INT,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`teacher_in_charge`) REFERENCES `teacher`(`teacher_file`),
-    FOREIGN KEY (`style_id`) REFERENCES `style`(`id_style`), -- Cambio
+    FOREIGN KEY (`style_id`) REFERENCES `style`(`id_style`),
     FOREIGN KEY (`sede`) REFERENCES `sede`(`id_sede`)
 );
 
