@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `master`(
     `graduation` varchar(100),
     `school_in_charge` varchar(100),
     PRIMARY KEY (`master_file`),
-    FOREIGN KEY (`graduation`)  REFERENCES `graduation`(`id_graduation`), 
+    FOREIGN KEY (`graduation`)  REFERENCES `graduation`(`id_graduation`)
 );
 
 CREATE TABLE IF NOT EXISTS `teacher`(
