@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `master`(
     `phone_number` varchar(20) NOT NULL,
     `adress` varchar(75) NOT NULL,
     `mail` varchar(100) NOT NULL,
-    `graduation` varchar(100),
+    `graduation` int,
     `school_in_charge` varchar(100),
     PRIMARY KEY (`master_file`),
     FOREIGN KEY (`graduation`)  REFERENCES `graduation`(`id_graduation`)
@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS `teacher`(
     `phone_number` varchar(20) NOT NULL,
     `adress` varchar(75) NOT NULL,
     `mail` varchar(100) NOT NULL,
-    `graduation` varchar(100),
-    `master` varchar(100),
+    `graduation` int,
+    `master` int,
     PRIMARY KEY (`teacher_file`),
     FOREIGN KEY (`graduation`)  REFERENCES `graduation`(`id_graduation`), 
     FOREIGN KEY (`master`) REFERENCES `master`(`master_file`)
@@ -54,9 +54,9 @@ CREATE TABLE IF NOT EXISTS `teacher`(
 CREATE TABLE IF NOT EXISTS `school` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(25) NOT NULL,
-    `teacher_in_charge` VARCHAR(25) NOT NULL,
-    `style_id` INT,
-    `sede` INT,
+    `teacher_in_charge` int,
+    `style_id` int,
+    `sede` int,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`teacher_in_charge`) REFERENCES `teacher`(`teacher_file`),
     FOREIGN KEY (`style_id`) REFERENCES `style`(`id_style`),
@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS `student`(
     `adress` varchar(75) NOT NULL, 
     `phone_number` varchar(20) NOT NULL,
     `mail` varchar(100) NOT NULL,
-    `graduation` varchar(100),
-    `teacher_in_charge` varchar(25),
+    `graduation` int,
+    `teacher_in_charge` int,
     PRIMARY KEY(`student_file`),
     FOREIGN KEY(`graduation`) REFERENCES `graduation`(`id_graduation`),
     FOREIGN KEY(`teacher_in_charge`) REFERENCES `teacher`(`teacher_file`)
