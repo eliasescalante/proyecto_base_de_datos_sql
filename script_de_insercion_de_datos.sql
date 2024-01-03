@@ -4,21 +4,21 @@ LIMIT 0, 50000
 
 -- Date: 2023-12-22 20:14
 */
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (1,'punta-amarillo','kyu-A');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (2,'amarillo','kyu-A');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (3,'amarillo-punta-naranja','kyu-A');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (4,'naranja','kyu-A');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (5,'naranja-punta-verde','kyu-A');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (6,'verde','kyu-A');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (7,'verde-punta-azul','kyu-B');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (8,'azul','kyu-B');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (9,'azul-punta-roja','kyu-B');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (10,'rojo','kyu-B');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (11,'rojo-punta-negro','kyu-B');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (12,'negro','shifu');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (13,'negro-I','dan');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (14,'negro-II','dan');
-INSERT INTO `graduation` (`id_graduation`,`level`,`description`) VALUES (15,'maestro','maestro');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (1,'punta-amarillo','2000-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (2,'amarillo','2001-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (3,'amarillo-punta-naranja','2002-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (4,'naranja','2003-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (5,'naranja-punta-verde','2004-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (6,'verde','2005-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (7,'verde-punta-azul','2006-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (8,'azul','2007-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (9,'azul-punta-roja','2008-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (10,'rojo','2010-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (11,'rojo-punta-negro','2012-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (12,'negro','2013-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (13,'negro-I','2014-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (14,'negro-II','2015-02-10');
+INSERT INTO `graduation` (`id_graduation`,`level`,`registration_date`) VALUES (15,'maestro','2016-02-10');
 
 /*
 -- Query: SELECT * FROM shenxinglin.style
