@@ -5,8 +5,9 @@ Curso: CoderHouse - SQL
 proyecto para el curso de sql en coderhouse
 ----
 
-- 1 - script de presentación de vistas
-- 2 - script de inserción de datos
-- 3 - script descripcion de tablas
-- 4 - idea principal para la creacion de la base de datos 
-- 5 - diagrama "entidad relacion"
+- 1 - script de funciones
+- 2 - script de presentación de vistas
+- 3 - script de inserción de datos
+- 4 - script descripcion de tablas
+- 5 - idea principal para la creacion de la base de datos 
+- 6 - diagrama "entidad relacion"
