@@ -9,8 +9,8 @@ drop procedure if exists sp_order_table;
 /* procedimiento para ordenar una tabla que paso por parametro en orden ascendente o descendente  segun una columna que tambien paso por parametro*/
 
 CREATE PROCEDURE sp_order_table(IN table_name VARCHAR(255), IN order_column VARCHAR(255), IN order_direction VARCHAR(10))
-BEGIN
-	/* concateno la cadena SQL que representa la consulta que se completa con los parametros */
+    BEGIN
+    /* concateno la cadena SQL que representa la consulta que se completa con los parametros */
     SET @query = CONCAT('SELECT * FROM ', table_name, ' ORDER BY ', order_column, ' ', order_direction, ';');
     /* aca preparo la consulta */
     PREPARE stmt FROM @query;
@@ -41,7 +41,7 @@ CREATE PROCEDURE manage_style(
     IN style_name VARCHAR(25),  
     IN style_description TEXT    
 )
-BEGIN
+    BEGIN
     /* inserta un registro en la tabla style */
     IF action = 1 THEN
         INSERT INTO `style` (`name`, `description`)
