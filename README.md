@@ -5,6 +5,7 @@ Curso: CoderHouse - SQL
 proyecto para el curso de sql en coderhouse
 ----
 
+- 8 - Triggers
 - 7 - Stored procedure
 - 6 - script de funciones
 - 5 - script de presentación de vistas
