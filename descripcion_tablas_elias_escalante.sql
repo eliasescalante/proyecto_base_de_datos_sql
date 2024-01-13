@@ -1,3 +1,4 @@
+/* creacion de tablas y schema*/
 DROP SCHEMA IF EXISTS shenxinglin;
 CREATE SCHEMA  IF NOT EXISTS shenxinglin;
 USE shenxinglin;
@@ -59,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `school` (
     `sede` int,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`teacher_in_charge`) REFERENCES `teacher`(`teacher_file`),
-    FOREIGN KEY (`style_id`) REFERENCES `style`(`id_style`),
+    FOREIGN KEY (`style_id`) REFERENCES `style`(`id_style`) ON DELETE CASCADE,
     FOREIGN KEY (`sede`) REFERENCES `sede`(`id_sede`)
 );
 
@@ -76,7 +77,6 @@ CREATE TABLE IF NOT EXISTS `student`(
     FOREIGN KEY(`graduation`) REFERENCES `graduation`(`id_graduation`),
     FOREIGN KEY(`teacher_in_charge`) REFERENCES `teacher`(`teacher_file`)
 );
-
 
 
 
