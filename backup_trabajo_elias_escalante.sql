@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `school` (
     `sede` int,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`teacher_in_charge`) REFERENCES `teacher`(`teacher_file`),
-    FOREIGN KEY (`style_id`) REFERENCES `style`(`id_style`),
+    FOREIGN KEY (`style_id`) REFERENCES `style`(`id_style`) ON DELETE CASCADE,
     FOREIGN KEY (`sede`) REFERENCES `sede`(`id_sede`)
 );
 
@@ -234,35 +234,44 @@ INSERT INTO `student` (`student_file`,`full_name`,`birthdate`,`adress`,`phone_nu
 
 /* vistas */
 
+-- ESTA VISTA CONTIENE LOS NOMBRES DE LOS ESTUDIANTES CON SU RESPECTIVAS GRADUACIONES.alter
+-- TOMA DE LA COLUMNA 'FULL_NAME' DE LA TABLA STUDENT Y DE LA COLUMNA 'LEVEL' DE LA TABLA GRADUATION.
 CREATE OR REPLACE VIEW view_students_with_graduation AS
     SELECT s.full_name AS student_name, g.level AS graduation_level
     FROM  student s
     JOIN graduation g ON s.graduation = g.id_graduation;
 
-
+-- ESTA VISTA CONTIENE LOS NOMBRES COMPLETOS DE LOS PROFESORES Y CONTIENE LOS NIVELES DE GRADUACION DE LOS MISMOS.
+-- ( TOMA DE LA COLUMNA 'FULL_NAME' DE LA TABLA TEACHER Y DE LA TABLA GRADUATION LA COLUMNA LEVEL.)
 CREATE OR REPLACE VIEW view_teachers_with_graduation AS
     SELECT t.full_name AS teacher_name, g.level AS graduation_level
     FROM  teacher t
     JOIN graduation g ON t.graduation = g.id_graduation;
 
-
+-- ESTA VISTA CONTIENE LOS NOMBRES DE LAS ESCUELAS CON SUS RESPECTIVOS PROFESORES A CARGO.alter
+-- ( TOMA DE LA COLUMNA 'NAME' DE LA TABLA SCHOOL Y DE LA COLUMNA 'FULL_NAME' DE LA TABLA TEACHER)
 CREATE OR REPLACE VIEW view_schools_with_teacher AS
     SELECT sc.name AS school_name, t.full_name AS teacher_in_charge_name
     FROM school sc
     LEFT JOIN teacher t ON sc.teacher_in_charge = t.teacher_file;
 
-
+-- ESTA VISTA CONTIENE LOS NOMBRES DE LAS ESCUELAS CON SUS RESPECTIVAS SEDES Y SUS DIRECCIONES.alter
+-- ( TOMA DE LA COLUMNA 'NAME' DE LA TABLA SCHOOL Y DE LA COLUMNA 'NAME' DE LA TABLA SEDE JUNTO CON LA COLUMNA 'ADRESS' DE LA TABLA SEDE)
 CREATE OR REPLACE VIEW view_schools_with_sede AS
     SELECT sc.name AS school_name, sd.name AS sede_name, sd.adress AS sede_address
     FROM school sc
     JOIN sede sd ON sc.sede = sd.id_sede;
 
 
-
+-- ESTA VISTA CONTIENE LOS NOMBRES DE LOS MAESTROS JUNTO CON SUS GRADUACIONES Y LAS ESCUELAS QUE TIENEN A CARGO
+-- TOMA DE LA COLUMNA 'FULL_NAME' DE LA TABLA MASTER Y DE LA COLUMNA 'LEVEL' DE LA TABLA GRADUATION Y DE LA COLUMNA 'SCHOOL_IN_CHARGE' DE LA TABLA MASTER.
 CREATE OR REPLACE VIEW view_masters_with_graduation_and_school AS
     SELECT m.full_name AS master_name, g.level AS graduation_level,  m.school_in_charge AS school_in_charge
     FROM master m
     JOIN graduation g ON m.graduation = g.id_graduation;
+    
+    
+    
     
     /* funciones */
     
@@ -334,6 +343,9 @@ DELIMITER ;
 
 select contar_estudiantes_por_graduacion('amarillo');
 
+
+
+
 /* procedure */
 
 
@@ -367,10 +379,7 @@ CALL sp_order_table('graduation', 'level', 'DESC');
 
 -- Drop the procedure if it exists
 DROP PROCEDURE IF EXISTS manage_style;
-
--- Delimiter change for procedure creation
 DELIMITER //
-
 CREATE PROCEDURE manage_style(
     IN action int, -- 1 para insertar o 2 para eliminar
     IN style_id INT,       
@@ -400,6 +409,128 @@ DELIMITER ;
 /*  para insertar un nuevo estilo */
 CALL manage_style(1, NULL, 'leon dorado', 'apariencia');
 /* para eliminar un registro de la tabla style */
-CALL manage_style(2, 1, NULL, NULL);
+CALL manage_style(2, 2, NULL, NULL);
 /* para comprobar que lo inserto o elimino*/
 select * from style;
+
+-- TRIGGERS
+
+
+/* creacion de la tabla auditoria */
+CREATE TABLE log_auditoria (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_name VARCHAR(255) NOT NULL,
+    table_name VARCHAR(255) NOT NULL,
+    modification_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    action varchar (255)
+);
+
+
+/* aca creo el disparador para detectar los insert que se hacen a la tabla style */
+-- 1
+DELIMITER //
+CREATE TRIGGER after_style_insert_trigger
+AFTER INSERT ON style
+FOR EACH ROW
+BEGIN
+    INSERT INTO log_auditoria (user_name, table_name, modification_date, action)
+    VALUES (CURRENT_USER(), 'style', NOW(), 'insert');
+END;
+//
+DELIMITER ;
+
+
+-- 2
+-- Aca defino el trigger para detectar antes de que se elimine una fila de la tabla "style"
+DELIMITER //
+CREATE TRIGGER trg_style_before_delete
+BEFORE DELETE
+ON style FOR EACH ROW
+BEGIN
+    /* Inserta un registro en una tabla de registros de eliminación */
+    INSERT INTO log_auditoria (user_name, table_name, modification_date, action)
+    VALUES (CURRENT_USER(), 'style', NOW(), 'delete');
+END //
+
+DELIMITER ;
+
+-- ejecuto el procedure de "manage_style" para agregar o eliminar un registro.alter
+/*  para insertar un nuevo estilo */
+CALL manage_style(1, NULL, 'delirio mistico', 'apariencia');
+/* para eliminar un registro de la tabla style */
+CALL manage_style(2, 4, NULL, NULL);
+
+-- aca seleccion la tabla log_auditoria para comprobar que se registro los eventos
+select * from log_auditoria;
+
+
+
+-- ACA CREO LOS DOS TRIGGERS EN LA TABLA STUDENT
+-- 1
+/* creo el disparador para detectar si la tabla student sufrio alguna modificacion */
+DELIMITER //
+
+CREATE TRIGGER trg_student_before_update
+BEFORE UPDATE
+ON student FOR EACH ROW
+BEGIN
+    DECLARE field_changed BOOLEAN DEFAULT FALSE;
+
+    -- Compara cada campo de la fila actual con el valor original
+    IF NEW.full_name != OLD.full_name THEN
+        SET field_changed = TRUE;
+    END IF;
+	-- aca verifico que el campo ah cambiado (pasa a valer true)
+    -- en ese caso inserto en la tabla log_auditoria el registro del evento
+    IF field_changed THEN
+        INSERT INTO log_auditoria (user_name, table_name, modification_date, action)
+        VALUES (CURRENT_USER(), 'student', NOW(), 'update');
+    END IF;
+END //
+
+DELIMITER ;
+
+-- 2 
+-- creo 2 trigger mas para saber si se elimina o inserta un registro en la tabla student.
+
+-- Trigger para detectar inserciones en la tabla student
+DELIMITER //
+CREATE TRIGGER trg_student_after_insert
+AFTER INSERT
+ON student FOR EACH ROW
+BEGIN
+	-- aca realizo la insercion en la tabla log_auditoria 
+    INSERT INTO log_auditoria (user_name, table_name, modification_date, action)
+    VALUES (CURRENT_USER(), 'student', NOW(), 'insert');
+END //
+DELIMITER ;
+
+-- Trigger para detectar eliminaciones en la tabla student
+DELIMITER //
+CREATE TRIGGER trg_student_after_delete
+AFTER DELETE
+ON student FOR EACH ROW
+BEGIN
+	-- aca realizo la insercion del evento en la tabla log_auditoria
+    INSERT INTO log_auditoria (user_name, table_name, modification_date, action)
+    VALUES (CURRENT_USER(), 'student', NOW(), 'delete');
+END //
+DELIMITER ;
+
+
+-- TESTEO LOS DIFERENTES REGISTROS DE EVENTOS:
+
+-- ahora modifico algun campo de un registro de la tabla student.
+UPDATE student
+SET full_name = 'Carla Palermo'
+WHERE student_file = 1;
+
+-- elimino un registro de la tabla student
+DELETE FROM student
+WHERE student_file = 3;
+
+-- inserto un nuevo registro en la tabla student
+INSERT INTO `student` (`student_file`,`full_name`,`birthdate`,`adress`,`phone_number`,`mail`,`graduation`,`teacher_in_charge`) VALUES (16,'Mirian gel Rosario','1996-08-03','Belgrano 663','11-42804677','mili@gmail.com',1,1);
+
+-- ahora seleccion la tabla log_auditoria para corroborar que se registro el evento satisfactoriamente
+select * from log_auditoria;
