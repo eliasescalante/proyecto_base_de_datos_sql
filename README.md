@@ -5,6 +5,7 @@ Curso: CoderHouse - SQL
 proyecto para el curso de sql en coderhouse
 ----
 
+- 10 - Sentencias - desafío clase 19 - creación de usuarios
 - 9 - Segunda pre-entrega final - actualizacion de comentarios y script
 - 8 - Triggers
 - 7 - Stored procedure
