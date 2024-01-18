@@ -350,12 +350,13 @@ select contar_estudiantes_por_graduacion('amarillo');
 
 
 /* PRIMER PROCEDIMIENTO*/
- 
-DELIMITER //
+
+
 /* drop el SP si ya existe*/
 drop procedure if exists sp_order_table;
-/* procedimiento para ordenar una tabla que paso por parametro en orden ascendente o descendente  segun una columna que tambien paso por parametro*/
 
+DELIMITER //
+/* procedimiento para ordenar una tabla que paso por parametro en orden ascendente o descendente  segun una columna que tambien paso por parametro*/
 CREATE PROCEDURE sp_order_table(IN table_name VARCHAR(255), IN order_column VARCHAR(255), IN order_direction VARCHAR(10))
 BEGIN
 	/* concateno la cadena SQL que representa la consulta que se completa con los parametros */
