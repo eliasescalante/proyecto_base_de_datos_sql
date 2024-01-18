@@ -535,3 +535,27 @@ INSERT INTO `student` (`student_file`,`full_name`,`birthdate`,`adress`,`phone_nu
 
 -- ahora seleccion la tabla log_auditoria para corroborar que se registro el evento satisfactoriamente
 select * from log_auditoria;
+
+
+
+-- SENTENCIAS
+
+-- aca creo el usuario con solo los premisos de lectura sobre todas las tablas
+
+CREATE USER 'coderhouse@localhost' IDENTIFIED BY 'coderhouse';
+GRANT SELECT ON shenxinglin.* TO 'coderhouse@localhost';
+
+-- aca creo el usuario elias que puede ver insertar y modificar datos de las tablas pero no eliminar
+CREATE USER 'escalante@localhost' IDENTIFIED BY 'escalante';
+-- aca le otorgo los permisos requeridos en el desafio
+GRANT SELECT, INSERT, UPDATE ON shenxinglin.* TO 'escalante@localhost';
+
+
+-- uso la setencia select para seleccionar desde la tabla user en la base de datos
+-- asi puedo ver si efectivamente estos usuarios tienen los permisos deseados y fueron creados. 
+
+SELECT * FROM mysql.user;
+
+-- con estos script puedo vizualizar los permisos otorgados a los usuarios creados
+SHOW GRANTS FOR 'escalante@localhost';
+SHOW GRANTS FOR 'coderhouse@localhost';
