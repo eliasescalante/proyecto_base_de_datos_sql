@@ -1,11 +1,13 @@
--- aca creo el usuario con solo los premisos de lectura sobre todas las tablas
+-- CREACION DE USUARIOS
 
+-- aca creo el usuario con solo los premisos de lectura sobre todas las tablas
 CREATE USER 'coderhouse@localhost' IDENTIFIED BY 'coderhouse';
+-- otorgo unicamente permisos para ver las tablas de la base de datos
 GRANT SELECT ON shenxinglin.* TO 'coderhouse@localhost';
 
 -- aca creo el usuario elias que puede ver insertar y modificar datos de las tablas pero no eliminar
 CREATE USER 'escalante@localhost' IDENTIFIED BY 'escalante';
--- aca le otorgo los permisos requeridos en el desafio
+-- aca le otorgo los permisos requeridos en el desafio - seleccionar tablas para ver, insertar y modificar datos.
 GRANT SELECT, INSERT, UPDATE ON shenxinglin.* TO 'escalante@localhost';
 
 
