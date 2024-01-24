@@ -5,6 +5,7 @@ Curso: CoderHouse - SQL
 proyecto para el curso de sql en coderhouse
 ----
 
+- 12 - Backup - desafio clase 21
 - 11 - Sublenguaje TCL - desafio clase 20
 - 10 - Sentencias - desafío clase 19 - creación de usuarios
 - 9 - Segunda pre-entrega final - actualizacion de comentarios y script
