@@ -20,8 +20,8 @@ proyecto para el curso de sql en coderhouse
 
 ----
 
-![GitHub repo size](https://img.shields.io/github/repo-size/eliasecalante/proyecto_base_de_datos_sql)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eliasecalante/proyecto_base_de_datos_sql)
-![GitHub last commit](https://img.shields.io/github/last-commit/eliasecalante/proyecto_base_de_datos_sql)
+![GitHub repo size](https://img.shields.io/github/repo-size/eliasescalante/proyecto_base_de_datos_sql)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eliasescalante/proyecto_base_de_datos_sql)
+![GitHub last commit](https://img.shields.io/github/last-commit/eliasescalante/proyecto_base_de_datos_sql)
 
 ----
