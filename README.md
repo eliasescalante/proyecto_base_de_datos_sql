@@ -17,3 +17,10 @@ proyecto para el curso de sql en coderhouse
 - 3 - script descripcion de tablas
 - 2 - diagrama "entidad relacion"
 - 1 - idea principal para la creacion de la base de datos 
+
+----
+
+![GitHub stars](https://img.shields.io/github/stars/eliasescalante/proyecto_base_de_datos_sql?style=social)
+![GitHub forks](https://img.shields.io/github/forks/eliasescalante/proyecto_base_de_datos_sql?style=social)
+
+----
